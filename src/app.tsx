@@ -22,15 +22,9 @@ function GameLoop() {
 	const { spawnPlayer, spawnEnemy } = useActions(actions);
 
 	useEffect(() => {
-		// Spawn one player on mount
 		const player = spawnPlayer();
+		const enemySpawnInterval = setInterval(() => spawnEnemy(), 1000);
 
-		// Set up enemy spawning interval
-		const enemySpawnInterval = setInterval(() => {
-			spawnEnemy();
-		}, 1000);
-
-		// Clean up
 		return () => {
 			player.destroy();
 			clearInterval(enemySpawnInterval);
