@@ -27,7 +27,7 @@ export function PlayerView({ entity }: { entity: Entity }) {
 }
 
 // Query for the first player entity and render it
-export function PlayerSpawner() {
+export function PlayerRenderer() {
 	const player = useQueryFirst(Player, Transform);
 	return player ? <PlayerView entity={player} /> : null;
 }

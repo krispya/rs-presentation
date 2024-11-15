@@ -2,18 +2,18 @@ import { Canvas } from '@react-three/fiber';
 import { useActions } from 'koota/react';
 import { useEffect } from 'react';
 import { actions } from './actions';
-import { PlayerSpawner } from './components/player-view';
-import { EnemySpawner } from './components/enemy-view';
-import { BulletSpawner } from './components/bullet-view';
+import { PlayerRenderer } from './components/player-renderer';
+import { EnemyRenderer } from './components/enemy-renderer';
+import { BulletRenderer } from './components/bullet-renderer';
 
 export function App() {
 	return (
 		<Canvas camera={{ fov: 50, position: [0, 0, 50] }}>
 			<GameLoop />
 
-			<PlayerSpawner />
-			<EnemySpawner />
-			<BulletSpawner />
+			<PlayerRenderer />
+			<EnemyRenderer />
+			<BulletRenderer />
 		</Canvas>
 	);
 }

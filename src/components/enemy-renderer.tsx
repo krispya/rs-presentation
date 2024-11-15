@@ -35,7 +35,7 @@ export function EnemyView({ entity }: { entity: Entity }) {
 }
 
 // Query for all enemies and render them
-export function EnemySpawner() {
+export function EnemyRenderer() {
 	const enemies = useQuery(Enemy, Transform);
 	return enemies.map((enemy) => <EnemyView entity={enemy} />);
 }
