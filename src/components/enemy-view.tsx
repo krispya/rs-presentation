@@ -1,6 +1,6 @@
 import { ThreeElements } from "@react-three/fiber";
 
-export function EnemyRenderer(props: ThreeElements["mesh"]) {
+export function EnemyView(props: ThreeElements["mesh"]) {
   return (
     <mesh {...props}>
       <dodecahedronGeometry />

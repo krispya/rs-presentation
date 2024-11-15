@@ -1,6 +1,6 @@
 import { ThreeElements } from "@react-three/fiber";
 
-export function PlayerRenderer(props: ThreeElements["mesh"]) {
+export function PlayerView(props: ThreeElements["mesh"]) {
   return (
     <mesh {...props}>
       <boxGeometry />
