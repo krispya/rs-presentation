@@ -30,5 +30,5 @@ export function BulletView({ entity }: { entity: Entity }) {
 
 export function BulletRenderer() {
 	const bullets = useQuery(Bullet, Transform);
-	return bullets.map((bullet) => <BulletView entity={bullet} />);
+	return bullets.map((bullet) => <BulletView key={bullet.id()} entity={bullet} />);
 }
