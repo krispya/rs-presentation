@@ -16,6 +16,7 @@ import { updateAvoidance } from './systems/update-avoidance';
 import { handleShooting } from './systems/handle-shooting';
 import { updateBullets } from './systems/update-bullet';
 import { updateBulletCollisions } from './systems/update-bullet-collisions';
+import { ScoreTracker } from './components/score-tracker';
 
 export function App() {
 	return (
@@ -26,6 +27,8 @@ export function App() {
 			<PlayerRenderer />
 			<EnemyRenderer />
 			<BulletRenderer />
+
+			<ScoreTracker />
 		</Canvas>
 	);
 }
