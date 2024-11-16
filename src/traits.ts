@@ -1,5 +1,6 @@
-import { trait } from 'koota';
+import { Entity, trait } from 'koota';
 import * as THREE from 'three';
+import { SpatialHashMap as SpatialHashMapImpl } from './utils/spatial-hash';
 
 // No data makes it a tag
 export const Player = trait();
@@ -21,4 +22,11 @@ export const Movement = trait({
 	damping: 0.95,
 });
 
+export const Avoidant = trait({
+	neighbors: [] as Entity[],
+	range: 1.5,
+});
+
+// World traits
 export const Time = trait({ delta: 0, current: 0 });
+export const SpatialHashMap = trait(() => new SpatialHashMapImpl(50));

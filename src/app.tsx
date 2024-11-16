@@ -9,8 +9,10 @@ import { pollInput } from './systems/poll-input';
 import { updateTime } from './systems/update-time';
 import { applyInput } from './systems/apply-input';
 import { moveEntities } from './systems/move-entities';
-import { Time } from './traits';
+import { SpatialHashMap, Time } from './traits';
 import { followPlayer } from './systems/follow-player';
+import { updateSpatialHashing } from './systems/update-spatial-hashing';
+import { updateAvoidance } from './systems/update-avoidance';
 
 export function App() {
 	return (
@@ -33,7 +35,9 @@ function FrameLoop() {
 		pollInput(world);
 		applyInput(world);
 		followPlayer(world);
+		updateAvoidance(world);
 		moveEntities(world);
+		updateSpatialHashing(world);
 	});
 
 	return null;
@@ -55,10 +59,8 @@ function Startup() {
 	const world = useWorld();
 
 	useEffect(() => {
-		world.add(Time);
-		return () => {
-			world.remove(Time);
-		};
+		world.add(Time, SpatialHashMap);
+		return () => world.remove(Time, SpatialHashMap);
 	}, [world]);
 
 	return null;
