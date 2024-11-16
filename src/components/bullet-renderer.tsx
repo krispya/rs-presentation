@@ -8,10 +8,8 @@ export function BulletView({ entity }: { entity: Entity }) {
 	const ref = useRef<THREE.Mesh>(null!);
 
 	useLayoutEffect(() => {
-		// Copy current position, rotation, and scale
+		// Copy current position
 		ref.current.position.copy(entity.get(Transform).position);
-		ref.current.rotation.copy(entity.get(Transform).rotation);
-		ref.current.scale.copy(entity.get(Transform).scale);
 
 		entity.set(Transform, {
 			position: ref.current.position,
@@ -21,7 +19,7 @@ export function BulletView({ entity }: { entity: Entity }) {
 	}, [entity]);
 
 	return (
-		<mesh ref={ref}>
+		<mesh ref={ref} scale={0.2}>
 			<sphereGeometry />
 			<meshBasicMaterial color="red" wireframe />
 		</mesh>

@@ -13,6 +13,9 @@ import { SpatialHashMap, Time } from './traits';
 import { followPlayer } from './systems/follow-player';
 import { updateSpatialHashing } from './systems/update-spatial-hashing';
 import { updateAvoidance } from './systems/update-avoidance';
+import { handleShooting } from './systems/handle-shooting';
+import { updateBullets } from './systems/update-bullet';
+import { updateBulletCollisions } from './systems/update-bullet-collisions';
 
 export function App() {
 	return (
@@ -36,7 +39,10 @@ function FrameLoop() {
 		applyInput(world);
 		followPlayer(world);
 		updateAvoidance(world);
+		handleShooting(world);
 		moveEntities(world);
+		updateBullets(world);
+		updateBulletCollisions(world);
 		updateSpatialHashing(world);
 	});
 

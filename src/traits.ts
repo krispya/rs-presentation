@@ -5,7 +5,12 @@ import { SpatialHashMap as SpatialHashMapImpl } from './utils/spatial-hash';
 // No data makes it a tag
 export const Player = trait();
 export const Enemy = trait();
-export const Bullet = trait();
+export const Bullet = trait({
+	speed: 60,
+	direction: () => new THREE.Vector3(),
+	lifetime: 2,
+	timeAlive: 0,
+});
 
 // A transform just like CSS!
 export const Transform = trait({
