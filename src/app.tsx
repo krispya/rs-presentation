@@ -9,11 +9,13 @@ import { pollInput } from './systems/poll-input';
 import { updateTime } from './systems/update-time';
 import { applyInput } from './systems/apply-input';
 import { moveEntities } from './systems/move-entities';
+import { Time } from './traits';
+import { followPlayer } from './systems/follow-player';
 
 export function App() {
 	return (
 		<Canvas camera={{ fov: 50, position: [0, 0, 50] }}>
-			<SpawnLogic />
+			<Startup />
 			<FrameLoop />
 
 			<PlayerRenderer />
@@ -30,13 +32,14 @@ function FrameLoop() {
 		updateTime(world);
 		pollInput(world);
 		applyInput(world);
+		followPlayer(world);
 		moveEntities(world);
 	});
 
 	return null;
 }
 
-function SpawnLogic() {
+function Startup() {
 	const { spawnPlayer, spawnEnemy } = useActions(actions);
 
 	useEffect(() => {
@@ -48,6 +51,15 @@ function SpawnLogic() {
 			clearInterval(enemySpawnInterval);
 		};
 	}, [spawnPlayer, spawnEnemy]);
+
+	const world = useWorld();
+
+	useEffect(() => {
+		world.add(Time);
+		return () => {
+			world.remove(Time);
+		};
+	}, [world]);
 
 	return null;
 }

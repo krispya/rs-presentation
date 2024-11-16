@@ -18,6 +18,7 @@ export const Input = trait(() => new THREE.Vector2());
 export const Movement = trait({
 	velocity: () => new THREE.Vector3(),
 	thrust: 1,
+	damping: 0.95,
 });
 
 export const Time = trait({ delta: 0, current: 0 });

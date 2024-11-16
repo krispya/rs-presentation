@@ -11,7 +11,10 @@ export function moveEntities(world: World) {
 	// Update the data of each entity
 	results.updateEach(([transform, movement]) => {
 		const { position } = transform;
-		const { velocity } = movement;
+		const { velocity, damping } = movement;
+
+		// Apply damping to current velocity
+		velocity.multiplyScalar(damping);
 
 		// Move the position by the velocity for a slice of time
 		position.x += velocity.x * delta;
