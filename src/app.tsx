@@ -17,6 +17,7 @@ import { updateBulletCollisions } from './systems/update-bullet-collisions';
 import { updateSpatialHashing } from './systems/update-spatial-hashing';
 import { updateTime } from './systems/update-time';
 import { SpatialHashMap, Time } from './traits';
+import { Nebula } from './components/nebula';
 
 export function App() {
 	return (
@@ -33,6 +34,8 @@ export function App() {
 			<ambientLight intensity={0.5} />
 			<directionalLight position={[10, 10, 10]} intensity={4} color={'#f77d7d'} />
 			<directionalLight position={[10.62, -7.14, 10]} intensity={4} />
+
+			<Nebula />
 		</Canvas>
 	);
 }
