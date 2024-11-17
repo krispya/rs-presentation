@@ -18,6 +18,7 @@ import { updateSpatialHashing } from './systems/update-spatial-hashing';
 import { updateTime } from './systems/update-time';
 import { SpatialHashMap, Time } from './traits';
 import { Nebula } from './components/nebula';
+import { PostProcessing } from './components/postprcoessing';
 
 export function App() {
 	return (
@@ -36,6 +37,7 @@ export function App() {
 			<directionalLight position={[10.62, -7.14, 10]} intensity={4} />
 
 			<Nebula />
+			<PostProcessing />
 		</Canvas>
 	);
 }

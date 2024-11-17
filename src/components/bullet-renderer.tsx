@@ -26,6 +26,8 @@ export function BulletView({ entity }: { entity: Entity }) {
 	);
 }
 
+const bulletColor = new THREE.Color('green').multiplyScalar(40);
+
 function HifiBulletView({ entity }: { entity: Entity }) {
 	const ref = useRef<THREE.Group>(null!);
 
@@ -45,7 +47,7 @@ function HifiBulletView({ entity }: { entity: Entity }) {
 		<group ref={ref}>
 			<mesh scale={0.4} rotation-z={Math.PI / 2}>
 				<capsuleGeometry args={[0.5, 1.5, 4, 4]} />
-				<meshBasicMaterial color="hotpink" />
+				<meshBasicMaterial color={bulletColor} />
 			</mesh>
 		</group>
 	);
