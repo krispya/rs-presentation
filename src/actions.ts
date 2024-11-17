@@ -10,6 +10,9 @@ export const actions = createActions((world) => ({
 		const direction = new THREE.Vector3(1, 0, 0);
 		direction.applyEuler(rotation);
 
-		return world.spawn(Transform({ position: position.clone() }), Bullet({ direction }));
+		return world.spawn(
+			Transform({ position: position.clone(), rotation: rotation.clone() }),
+			Bullet({ direction })
+		);
 	},
 }));

@@ -34,8 +34,36 @@ export function EnemyView({ entity }: { entity: Entity }) {
 	);
 }
 
+function HifiEnemyView({ entity }: { entity: Entity }) {
+	const ref = useRef<THREE.Mesh>(null!);
+
+	useLayoutEffect(() => {
+		// Set initial position and rotation
+		ref.current.position.set(between(-50, 50), between(-50, 50), 0);
+
+		ref.current.rotation.set(
+			between(0, Math.PI * 2),
+			between(0, Math.PI * 2),
+			between(0, Math.PI * 2)
+		);
+
+		// Sync traits from mesh
+		entity.set(Transform, {
+			position: ref.current.position,
+			rotation: ref.current.rotation,
+			scale: ref.current.scale,
+		});
+	}, [entity]);
+	return (
+		<mesh ref={ref}>
+			<dodecahedronGeometry />
+			<meshStandardMaterial color="white" metalness={0.5} roughness={0.25} />
+		</mesh>
+	);
+}
+
 // Query for all enemies and render them
 export function EnemyRenderer() {
 	const enemies = useQuery(Enemy, Transform);
-	return enemies.map((enemy) => <EnemyView key={enemy.id()} entity={enemy} />);
+	return enemies.map((enemy) => <HifiEnemyView key={enemy.id()} entity={enemy} />);
 }

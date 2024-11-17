@@ -10,7 +10,7 @@ export function BulletView({ entity }: { entity: Entity }) {
 	useLayoutEffect(() => {
 		// Copy current position
 		ref.current.position.copy(entity.get(Transform).position);
-
+		ref.current.rotation.copy(entity.get(Transform).rotation);
 		entity.set(Transform, {
 			position: ref.current.position,
 			rotation: ref.current.rotation,
@@ -26,7 +26,32 @@ export function BulletView({ entity }: { entity: Entity }) {
 	);
 }
 
+function HifiBulletView({ entity }: { entity: Entity }) {
+	const ref = useRef<THREE.Group>(null!);
+
+	useLayoutEffect(() => {
+		// Copy current position
+		ref.current.position.copy(entity.get(Transform).position);
+		ref.current.rotation.copy(entity.get(Transform).rotation);
+
+		entity.set(Transform, {
+			position: ref.current.position,
+			rotation: ref.current.rotation,
+			scale: ref.current.scale,
+		});
+	}, [entity]);
+
+	return (
+		<group ref={ref}>
+			<mesh scale={0.4} rotation-z={Math.PI / 2}>
+				<capsuleGeometry args={[0.5, 1.5, 4, 4]} />
+				<meshBasicMaterial color="hotpink" />
+			</mesh>
+		</group>
+	);
+}
+
 export function BulletRenderer() {
 	const bullets = useQuery(Bullet, Transform);
-	return bullets.map((bullet) => <BulletView key={bullet.id()} entity={bullet} />);
+	return bullets.map((bullet) => <HifiBulletView key={bullet.id()} entity={bullet} />);
 }
