@@ -19,6 +19,8 @@ import { updateTime } from './systems/update-time';
 import { SpatialHashMap, Time } from './traits';
 import { Nebula } from './components/nebula';
 import { PostProcessing } from './components/postprcoessing';
+import { applyForce } from './systems/apply-force';
+import { pushEnemies } from './systems/push-enemies';
 
 export function App() {
 	return (
@@ -51,7 +53,9 @@ function FrameLoop() {
 		applyInput(world);
 		followPlayer(world);
 		updateAvoidance(world);
+		pushEnemies(world);
 		handleShooting(world);
+		applyForce(world);
 		moveEntities(world);
 		updateBullets(world);
 		updateBulletCollisions(world);
