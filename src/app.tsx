@@ -9,7 +9,7 @@ import { BulletRenderer } from './components/bullet-renderer';
 export function App() {
 	return (
 		<Canvas camera={{ fov: 50, position: [0, 0, 50] }}>
-			<FrameLoop />
+			<Startup />
 
 			<PlayerRenderer />
 			<EnemyRenderer />
@@ -18,7 +18,7 @@ export function App() {
 	);
 }
 
-function FrameLoop() {
+function Startup() {
 	const { spawnPlayer, spawnEnemy } = useActions(actions);
 
 	useEffect(() => {
