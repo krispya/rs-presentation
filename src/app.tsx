@@ -4,25 +4,25 @@ import { useEffect } from 'react';
 import { actions } from './actions';
 import { BulletRenderer } from './components/bullet-renderer';
 import { EnemyRenderer } from './components/enemy-renderer';
+import { ExplosionRenderer } from './components/explosion-renderer';
+import { Nebula } from './components/nebula';
 import { PlayerRenderer } from './components/player-renderer';
-import { ScoreTracker } from './components/score-tracker';
+import { PostProcessing } from './components/postprcoessing';
+import { HifiScoreTracker } from './components/score-tracker';
+import { applyForce } from './systems/apply-force';
 import { applyInput } from './systems/apply-input';
 import { followPlayer } from './systems/follow-player';
 import { handleShooting } from './systems/handle-shooting';
 import { moveEntities } from './systems/move-entities';
 import { pollInput } from './systems/poll-input';
+import { pushEnemies } from './systems/push-enemies';
+import { tickExplosion } from './systems/tick-explosion';
 import { updateAvoidance } from './systems/update-avoidance';
 import { updateBullets } from './systems/update-bullet';
 import { updateBulletCollisions } from './systems/update-bullet-collisions';
 import { updateSpatialHashing } from './systems/update-spatial-hashing';
 import { updateTime } from './systems/update-time';
 import { Movement, SpatialHashMap, Time } from './traits';
-import { Nebula } from './components/nebula';
-import { PostProcessing } from './components/postprcoessing';
-import { applyForce } from './systems/apply-force';
-import { pushEnemies } from './systems/push-enemies';
-import { ExplosionRenderer } from './components/explosion-renderer';
-import { tickExplosion } from './systems/tick-explosion';
 
 export function App() {
 	return (
@@ -35,7 +35,7 @@ export function App() {
 			<BulletRenderer />
 			<ExplosionRenderer />
 
-			<ScoreTracker />
+			<HifiScoreTracker />
 
 			<ambientLight intensity={0.5} />
 			<directionalLight position={[10, 10, 10]} intensity={4} color={'#f77d7d'} />
