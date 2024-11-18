@@ -33,6 +33,13 @@ export const Avoidant = trait({
 	range: 1.5,
 });
 
+export const Explosion = trait({
+	duration: 500,
+	current: 0,
+	count: 12,
+	velocities: () => [] as THREE.Vector3[],
+});
+
 // World traits
 export const Time = trait({ delta: 0, current: 0 });
 export const SpatialHashMap = trait(() => new SpatialHashMapImpl(50));

@@ -21,6 +21,8 @@ import { Nebula } from './components/nebula';
 import { PostProcessing } from './components/postprcoessing';
 import { applyForce } from './systems/apply-force';
 import { pushEnemies } from './systems/push-enemies';
+import { ExplosionRenderer } from './components/explosion-renderer';
+import { tickExplosion } from './systems/tick-explosion';
 
 export function App() {
 	return (
@@ -31,6 +33,7 @@ export function App() {
 			<PlayerRenderer />
 			<EnemyRenderer />
 			<BulletRenderer />
+			<ExplosionRenderer />
 
 			<ScoreTracker />
 
@@ -60,6 +63,7 @@ function FrameLoop() {
 		updateBullets(world);
 		updateBulletCollisions(world);
 		updateSpatialHashing(world);
+		tickExplosion(world);
 	});
 
 	return null;
