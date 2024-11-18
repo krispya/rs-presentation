@@ -4,6 +4,7 @@ import { Entity } from 'koota';
 import { useLayoutEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { between } from '../utils/between';
+import { useFrame } from '@react-three/fiber';
 
 export function EnemyView({ entity }: { entity: Entity }) {
 	const ref = useRef<THREE.Mesh>(null!);
@@ -36,6 +37,7 @@ export function EnemyView({ entity }: { entity: Entity }) {
 
 function HifiEnemyView({ entity }: { entity: Entity }) {
 	const ref = useRef<THREE.Mesh>(null!);
+	const scaleRef = useRef(0);
 
 	useLayoutEffect(() => {
 		// Set initial position and rotation
@@ -54,6 +56,17 @@ function HifiEnemyView({ entity }: { entity: Entity }) {
 			scale: ref.current.scale,
 		});
 	}, [entity]);
+
+	// Scale into existence
+	useFrame((_, delta) => {
+		if (!ref.current) return;
+		const progress = Math.min(scaleRef.current + delta * 2, 1);
+		// Apply easing - this uses cubic easing out
+		const eased = 1 - Math.pow(1 - progress, 3);
+		scaleRef.current = progress;
+		ref.current.scale.setScalar(eased);
+	});
+
 	return (
 		<mesh ref={ref}>
 			<dodecahedronGeometry />
