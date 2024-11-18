@@ -3,21 +3,13 @@ import { useQuery } from 'koota/react';
 import { useLayoutEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { Bullet, Transform } from '../traits';
+import { syncTransform } from '../utils/sync-transform';
 
 export function BulletView({ entity }: { entity: Entity }) {
 	const ref = useRef<THREE.Mesh>(null!);
 
 	useLayoutEffect(() => {
-		// Copy current position, rotation, and scale
-		ref.current.position.copy(entity.get(Transform).position);
-		ref.current.rotation.copy(entity.get(Transform).rotation);
-		ref.current.scale.copy(entity.get(Transform).scale);
-
-		entity.set(Transform, {
-			position: ref.current.position,
-			rotation: ref.current.rotation,
-			scale: ref.current.scale,
-		});
+		syncTransform(entity, ref);
 	}, [entity]);
 
 	return (

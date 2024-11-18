@@ -1,8 +1,9 @@
 import { Entity } from 'koota';
-import { useQueryFirst } from 'koota/react';
-import { Player, Transform } from '../traits';
+import { useQuery } from 'koota/react';
 import { useLayoutEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { Player, Transform } from '../traits';
+import { syncTransform } from '../utils/sync-transform';
 
 // Position is now driven by Koota
 export function PlayerView({ entity }: { entity: Entity }) {
@@ -11,11 +12,7 @@ export function PlayerView({ entity }: { entity: Entity }) {
 	// Sync traits
 	// Use layout effect so syncing happens before other effects
 	useLayoutEffect(() => {
-		entity.set(Transform, {
-			position: ref.current.position,
-			rotation: ref.current.rotation,
-			scale: ref.current.scale,
-		});
+		syncTransform(entity, ref);
 	}, [entity]);
 
 	return (
@@ -26,8 +23,8 @@ export function PlayerView({ entity }: { entity: Entity }) {
 	);
 }
 
-// Query for the first player entity and render it
+// Query for player entities and render them
 export function PlayerRenderer() {
-	const player = useQueryFirst(Player, Transform);
-	return player ? <PlayerView entity={player} /> : null;
+	const players = useQuery(Player, Transform);
+	return players.map((player) => <PlayerView entity={player} />);
 }
