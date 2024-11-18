@@ -2,7 +2,8 @@ import { useWorld } from 'koota/react';
 import { useEffect, useState } from 'react';
 import { Enemy } from '../traits';
 import { Html } from '@react-three/drei';
-import NumberFlow from '@number-flow/react';
+import '@fontsource/russo-one';
+import AnimatedNumbers from 'react-animated-numbers';
 
 export function ScoreTracker() {
 	const world = useWorld();
@@ -15,6 +16,7 @@ export function ScoreTracker() {
 
 		return () => {
 			unsub();
+			setScore(0);
 		};
 	}, [world]);
 
@@ -44,6 +46,7 @@ export function HifiScoreTracker() {
 
 		return () => {
 			unsub();
+			setScore(0);
 		};
 	}, [world]);
 
@@ -55,9 +58,11 @@ export function HifiScoreTracker() {
 				color: 'gold',
 				fontSize: '3rem',
 				fontFamily: 'Russo One',
+				display: 'flex',
+				gap: '0.65rem',
 			}}
 		>
-			Score: <NumberFlow value={score} />
+			Score: <AnimatedNumbers animateToNumber={score} />
 		</Html>
 	);
 }
