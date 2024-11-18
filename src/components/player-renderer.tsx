@@ -1,10 +1,11 @@
+import { useGLTF } from '@react-three/drei';
 import { Entity } from 'koota';
-import { useQueryFirst } from 'koota/react';
-import { Player, Transform } from '../traits';
-import { useLayoutEffect, useRef } from 'react';
+import { useQueryFirst, useTraitEffect } from 'koota/react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import src from '../assets/spacecraft.glb?url';
-import { useGLTF } from '@react-three/drei';
+import { Input, Player, Transform } from '../traits';
+import { ThrusterView } from './thruster-view';
 
 // Position is now driven by Koota
 export function PlayerView({ entity }: { entity: Entity }) {
@@ -29,6 +30,7 @@ export function PlayerView({ entity }: { entity: Entity }) {
 }
 
 export function HifiPlayerView({ entity }: { entity: Entity }) {
+	const ref = useRef<THREE.Group>(null!);
 	const { scene } = useGLTF(src);
 
 	useLayoutEffect(() => {
@@ -38,13 +40,29 @@ export function HifiPlayerView({ entity }: { entity: Entity }) {
 		model.scale.set(0.5, 0.5, 0.5);
 
 		entity.set(Transform, {
-			position: scene.position,
-			rotation: scene.rotation,
-			scale: scene.scale,
+			position: ref.current.position,
+			rotation: ref.current.rotation,
+			scale: ref.current.scale,
 		});
 	}, [entity, scene]);
 
-	return <primitive object={scene} />;
+	const [isThrusting, setIsThrusting] = useState(false);
+
+	useTraitEffect(entity, Input, (input) => {
+		if (input && input.length() > 0) {
+			setIsThrusting(true);
+		} else {
+			setIsThrusting(false);
+		}
+	});
+
+	return (
+		<group ref={ref}>
+			<primitive object={scene} />
+			{isThrusting && <ThrusterView position={[-1.5, -0.34, 0]} />}
+			{isThrusting && <ThrusterView position={[-1.5, 0.34, 0]} />}
+		</group>
+	);
 }
 
 // Query for the first player entity and render it
