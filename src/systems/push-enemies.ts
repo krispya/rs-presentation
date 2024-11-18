@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { Enemy, Movement, Player, SpatialHashMap, Transform } from '../traits';
 
 const collisionRadius = 2.1;
-const pushStrength = 0.1;
+const pushStrength = 0.08;
 const pushForce = new THREE.Vector3();
 
 export function pushEnemies(world: World) {

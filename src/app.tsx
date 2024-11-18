@@ -16,7 +16,7 @@ import { updateBullets } from './systems/update-bullet';
 import { updateBulletCollisions } from './systems/update-bullet-collisions';
 import { updateSpatialHashing } from './systems/update-spatial-hashing';
 import { updateTime } from './systems/update-time';
-import { SpatialHashMap, Time } from './traits';
+import { Movement, SpatialHashMap, Time } from './traits';
 import { Nebula } from './components/nebula';
 import { PostProcessing } from './components/postprcoessing';
 import { applyForce } from './systems/apply-force';
@@ -70,6 +70,7 @@ function Startup() {
 
 	useEffect(() => {
 		const player = spawnPlayer();
+		player.set(Movement, { thrust: 2 });
 		const enemySpawnInterval = setInterval(() => spawnEnemy(), 1000);
 
 		return () => {
