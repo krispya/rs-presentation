@@ -1,9 +1,9 @@
+import '@fontsource/russo-one';
+import { Html } from '@react-three/drei';
 import { useWorld } from 'koota/react';
 import { useEffect, useState } from 'react';
-import { Enemy } from '../traits';
-import { Html } from '@react-three/drei';
-import '@fontsource/russo-one';
 import AnimatedNumbers from 'react-animated-numbers';
+import { Enemy } from '../traits';
 
 export function ScoreTracker() {
 	const world = useWorld();
@@ -43,6 +43,8 @@ export function HifiScoreTracker() {
 		const unsub = world.onRemove([Enemy], () => {
 			setScore((v) => v + 1);
 		});
+
+		setScore((v) => v + 1);
 
 		return () => {
 			unsub();
