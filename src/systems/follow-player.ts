@@ -1,10 +1,10 @@
 import { World } from 'koota';
-import { Enemy, Movement, Player, Transform } from '../traits';
 import * as THREE from 'three';
+import { Enemy, Movement, Player, Transform } from '../traits';
 
 const acceleration = new THREE.Vector3();
 
-export const followPlayer = (world: World) => {
+export const flockToPlayer = (world: World) => {
 	const player = world.queryFirst(Player, Transform);
 	if (!player) return;
 

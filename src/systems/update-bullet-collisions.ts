@@ -1,8 +1,14 @@
 import { World } from 'koota';
-import { Bullet, Enemy, Explosion, SpatialHashMap, Transform } from '../traits';
+import {
+	Bullet,
+	Enemy,
+	Explosion,
+	SpatialHashMap,
+	Transform,
+} from '../traits';
 import { between } from '../utils/between';
 
-export const updateBulletCollisions = (world: World) => {
+export const collideBulletsWithEnemies = (world: World) => {
 	const spatialHashMap = world.get(SpatialHashMap);
 
 	world
@@ -18,14 +24,17 @@ export const updateBulletCollisions = (world: World) => {
 
 			const hitEnemy = nearbyEntities.find(
 				(entity) =>
-					entity.has(Enemy) && entity.get(Transform).position.distanceTo(position) < 1
+					entity.has(Enemy) &&
+					entity.get(Transform).position.distanceTo(position) < 1
 			);
 
 			if (hitEnemy !== undefined) {
 				// Spawn explosion in enemy's position.
 				world.spawn(
 					Explosion({ count: Math.floor(between(12, 20)) }),
-					Transform({ position: hitEnemy.get(Transform).position.clone() })
+					Transform({
+						position: hitEnemy.get(Transform).position.clone(),
+					})
 				);
 
 				// Destroy bullet and enemy.

@@ -1,10 +1,15 @@
 import { World } from 'koota';
 import * as THREE from 'three';
-import { Avoidant, Movement, SpatialHashMap, Transform } from '../traits';
+import {
+	Avoidant,
+	Movement,
+	SpatialHashMap,
+	Transform,
+} from '../traits';
 
 const acceleration = new THREE.Vector3();
 
-export const updateAvoidance = (world: World) => {
+export const avoidEachother = (world: World) => {
 	const spatialHashMap = world.get(SpatialHashMap);
 
 	world
@@ -22,7 +27,8 @@ export const updateAvoidance = (world: World) => {
 			neighbors = neighbors.filter((neighbor) => {
 				return (
 					neighbor.has(Avoidant) &&
-					neighbor.get(Transform).position.distanceTo(position) <= avoidance.range
+					neighbor.get(Transform).position.distanceTo(position) <=
+						avoidance.range
 				);
 			});
 
@@ -30,10 +36,15 @@ export const updateAvoidance = (world: World) => {
 				acceleration.setScalar(0);
 
 				for (const neighbor of neighbors) {
-					acceleration.add(neighbor.get(Transform).position).sub(position);
+					acceleration
+						.add(neighbor.get(Transform).position)
+						.sub(position);
 				}
 
-				acceleration.divideScalar(-neighbors.length).normalize().multiplyScalar(2);
+				acceleration
+					.divideScalar(-neighbors.length)
+					.normalize()
+					.multiplyScalar(2);
 				velocity.add(acceleration);
 			}
 		});

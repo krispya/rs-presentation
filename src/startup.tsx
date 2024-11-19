@@ -1,6 +1,8 @@
+import { useFrame } from '@react-three/fiber';
 import { useActions, useWorld } from 'koota/react';
 import { useEffect } from 'react';
 import { actions } from './actions';
+import { updateSpatialHashing } from './systems/update-spatial-hashing';
 import { Movement, SpatialHashMap, Time } from './traits';
 
 export function Startup() {
@@ -10,8 +12,8 @@ export function Startup() {
 		const player = spawnPlayer();
 		player.set(Movement, { thrust: 2 });
 
-		// // Spawn 20 enemies to start
-		// for (let i = 0; i < 40; i++) {
+		// Spawn 20 enemies to start
+		// for (let i = 0; i < 20; i++) {
 		// 	spawnEnemy();
 		// }
 
@@ -29,6 +31,10 @@ export function Startup() {
 		world.add(Time, SpatialHashMap);
 		// return () => world.remove(Time, SpatialHashMap);
 	}, [world]);
+
+	useFrame(() => {
+		updateSpatialHashing(world);
+	});
 
 	return null;
 }
