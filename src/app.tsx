@@ -38,7 +38,11 @@ export function App() {
 			<HifiScoreTracker />
 
 			<ambientLight intensity={0.5} />
-			<directionalLight position={[10, 10, 10]} intensity={4} color={'#f77d7d'} />
+			<directionalLight
+				position={[10, 10, 10]}
+				intensity={4}
+				color={'#f77d7d'}
+			/>
 			<directionalLight position={[10.62, -7.14, 10]} intensity={4} />
 
 			<Nebula />
@@ -75,7 +79,13 @@ function Startup() {
 	useEffect(() => {
 		const player = spawnPlayer();
 		player.set(Movement, { thrust: 2 });
-		const enemySpawnInterval = setInterval(() => spawnEnemy(), 1000);
+
+		// Spawn 20 enemies to start
+		for (let i = 0; i < 40; i++) {
+			spawnEnemy();
+		}
+
+		const enemySpawnInterval = setInterval(() => spawnEnemy(), 300);
 
 		return () => {
 			player.destroy();
