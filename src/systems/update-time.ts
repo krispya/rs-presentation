@@ -4,6 +4,8 @@ import { Time } from '../traits';
 export function updateTime(world: World) {
 	const time = world.get(Time);
 
+	if (time?.delta === undefined) return;
+
 	if (time.current === 0) time.current = performance.now();
 
 	const now = performance.now();

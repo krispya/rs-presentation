@@ -1,7 +1,7 @@
 import { World } from 'koota';
-import { Input, Transform, Time, Movement } from '../traits';
+import { Input, Movement, Time, Transform } from '../traits';
 
-export function applyInput(world: World) {
+export function convertInputToMovement(world: World) {
 	// Get the delta time from the world clock
 	const { delta } = world.get(Time);
 
@@ -20,7 +20,10 @@ export function applyInput(world: World) {
 
 		// Rotate to face the direction of movement
 		const normalizedVelocity = velocity.clone().normalize();
-		const angle = Math.atan2(normalizedVelocity.y, normalizedVelocity.x);
+		const angle = Math.atan2(
+			normalizedVelocity.y,
+			normalizedVelocity.x
+		);
 		rotation.z = angle;
 	});
 }
