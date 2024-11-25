@@ -4,7 +4,6 @@ import { useQuery } from 'koota/react';
 import { useLayoutEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { Enemy, Transform } from '../traits';
-import { between } from '../utils/between';
 
 export function EnemyView({ entity }: { entity: Entity }) {
 	const ref = useRef<THREE.Mesh>(null!);
@@ -35,14 +34,9 @@ function HifiEnemyView({ entity }: { entity: Entity }) {
 	const scaleRef = useRef(0);
 
 	useLayoutEffect(() => {
-		// Set initial position and rotation
-		ref.current.position.set(between(-50, 50), between(-50, 50), 0);
-
-		ref.current.rotation.set(
-			between(0, Math.PI * 2),
-			between(0, Math.PI * 2),
-			between(0, Math.PI * 2)
-		);
+		ref.current.position.copy(entity.get(Transform).position);
+		ref.current.rotation.copy(entity.get(Transform).rotation);
+		ref.current.scale.copy(entity.get(Transform).scale);
 
 		// Sync traits from mesh
 		entity.set(Transform, {
@@ -78,6 +72,6 @@ function HifiEnemyView({ entity }: { entity: Entity }) {
 export function EnemyRenderer() {
 	const enemies = useQuery(Enemy, Transform);
 	return enemies.map((enemy) => (
-		<EnemyView key={enemy.id()} entity={enemy} />
+		<HifiEnemyView key={enemy.id()} entity={enemy} />
 	));
 }

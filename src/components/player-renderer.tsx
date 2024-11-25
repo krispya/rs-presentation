@@ -68,5 +68,5 @@ export function HifiPlayerView({ entity }: { entity: Entity }) {
 // Query for the first player entity and render it
 export function PlayerRenderer() {
 	const player = useQueryFirst(Player, Transform);
-	return player ? <PlayerView entity={player} /> : null;
+	return player ? <HifiPlayerView entity={player} /> : null;
 }

@@ -56,6 +56,6 @@ function HifiBulletView({ entity }: { entity: Entity }) {
 export function BulletRenderer() {
 	const bullets = useQuery(Bullet, Transform);
 	return bullets.map((bullet) => (
-		<BulletView key={bullet.id()} entity={bullet} />
+		<HifiBulletView key={bullet.id()} entity={bullet} />
 	));
 }

@@ -17,7 +17,7 @@ export function Startup() {
 		// 	spawnEnemy();
 		// }
 
-		const enemySpawnInterval = setInterval(() => spawnEnemy(), 1000);
+		const enemySpawnInterval = setInterval(() => spawnEnemy(), 3000);
 
 		return () => {
 			player.destroy();
