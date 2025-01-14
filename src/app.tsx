@@ -33,12 +33,7 @@ export function App() {
 			<ExplosionRenderer />
 
 			<ambientLight intensity={1.02} />
-			<directionalLight
-				position={[10.41789, -5.97702, 10]}
-				intensity={2.98}
-				color={'#c31829'}
-				args={undefined}
-			/>
+			<directionalLight position={[10.41789, -5.97702, 10]} intensity={2.98} color={'#c31829'} />
 			<directionalLight position={[10.55754, 5.89323, 9.99894]} intensity={4.88} color={'#ffffff'} />
 
 			<PostProcessing />

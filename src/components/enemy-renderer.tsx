@@ -9,9 +9,10 @@ export function EnemyView({ entity }: { entity: Entity }) {
 	const ref = useRef<THREE.Mesh>(null!);
 
 	useLayoutEffect(() => {
-		ref.current.position.copy(entity.get(Transform)!.position);
-		ref.current.rotation.copy(entity.get(Transform)!.rotation);
-		ref.current.scale.copy(entity.get(Transform)!.scale);
+		const transform = entity.get(Transform)!;
+		ref.current.position.copy(transform.position);
+		ref.current.rotation.copy(transform.rotation);
+		ref.current.scale.copy(transform.scale);
 
 		// Sync traits from mesh
 		entity.set(Transform, {
@@ -34,9 +35,10 @@ function HifiEnemyView({ entity }: { entity: Entity }) {
 	const scaleRef = useRef(0);
 
 	useLayoutEffect(() => {
-		ref.current.position.copy(entity.get(Transform)!.position);
-		ref.current.rotation.copy(entity.get(Transform)!.rotation);
-		ref.current.scale.copy(entity.get(Transform)!.scale);
+		const transform = entity.get(Transform)!;
+		ref.current.position.copy(transform.position);
+		ref.current.rotation.copy(transform.rotation);
+		ref.current.scale.copy(transform.scale);
 
 		// Sync traits from mesh
 		entity.set(Transform, {

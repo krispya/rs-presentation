@@ -49,11 +49,8 @@ export function HifiPlayerView({ entity }: { entity: Entity }) {
 	const [isThrusting, setIsThrusting] = useState(false);
 
 	useTraitEffect(entity, Input, (input) => {
-		if (input && input.length() > 0) {
-			setIsThrusting(true);
-		} else {
-			setIsThrusting(false);
-		}
+		if (input && input.length() > 0) setIsThrusting(true);
+		else setIsThrusting(false);
 	});
 
 	return (
