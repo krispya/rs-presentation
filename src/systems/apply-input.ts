@@ -3,7 +3,7 @@ import { Input, Movement, Time, Transform } from '../traits';
 
 export function convertInputToMovement(world: World) {
 	// Get the delta time from the world clock
-	const { delta } = world.get(Time);
+	const { delta } = world.get(Time)!;
 
 	// Query entities with input, transform, and movement components
 	const results = world.query(Input, Transform, Movement);
@@ -20,10 +20,7 @@ export function convertInputToMovement(world: World) {
 
 		// Rotate to face the direction of movement
 		const normalizedVelocity = velocity.clone().normalize();
-		const angle = Math.atan2(
-			normalizedVelocity.y,
-			normalizedVelocity.x
-		);
+		const angle = Math.atan2(normalizedVelocity.y, normalizedVelocity.x);
 		rotation.z = angle;
 	});
 }

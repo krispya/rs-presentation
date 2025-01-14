@@ -2,9 +2,7 @@ import { World } from 'koota';
 import { Time } from '../traits';
 
 export function updateTime(world: World) {
-	const time = world.get(Time);
-
-	if (time?.delta === undefined) return;
+	const time = world.get(Time)!;
 
 	if (time.current === 0) time.current = performance.now();
 

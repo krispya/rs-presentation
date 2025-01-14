@@ -15,11 +15,11 @@ import { handleShooting } from './systems/handle-shooting';
 import { moveEntities } from './systems/move-entities';
 import { pollInput } from './systems/poll-input';
 import { pushEnemies } from './systems/push-enemies';
+import { tickExplosion } from './systems/tick-explosion';
 import { avoidEachother } from './systems/update-avoidance';
 import { updateBullets } from './systems/update-bullet';
 import { collideBulletsWithEnemies } from './systems/update-bullet-collisions';
 import { updateTime } from './systems/update-time';
-import { tickExplosion } from './systems/tick-explosion';
 
 export function App() {
 	return (
@@ -39,14 +39,10 @@ export function App() {
 				color={'#c31829'}
 				args={undefined}
 			/>
-			<directionalLight
-				position={[10.55754, 5.89323, 9.99894]}
-				intensity={4.88}
-				color={'#ffffff'}
-			/>
+			<directionalLight position={[10.55754, 5.89323, 9.99894]} intensity={4.88} color={'#ffffff'} />
 
 			<PostProcessing />
-			<Nebula />
+			<Nebula speed={0.02} />
 
 			<HifiScoreTracker />
 		</Canvas>

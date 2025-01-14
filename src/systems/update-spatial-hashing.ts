@@ -8,11 +8,11 @@ export const updateSpatialHashing = (world: World) => {
 
 	// Add entities to the spatial hash map
 	world.query(Transform).updateEach(([{ position }], entity) => {
-		spatialHashMap.setEntity(entity, position.x, position.y, position.z);
+		spatialHashMap!.setEntity(entity, position.x, position.y, position.z);
 	});
 
 	// Remove entities from the spatial hash map
 	world.query(Removed(Transform)).forEach((entity) => {
-		spatialHashMap.removeEntity(entity);
+		spatialHashMap!.removeEntity(entity);
 	});
 };

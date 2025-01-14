@@ -3,7 +3,7 @@ import { Transform, Movement, Time } from '../traits';
 
 export function moveEntities(world: World) {
 	// Get the delta time from the world clock
-	const { delta } = world.get(Time);
+	const { delta } = world.get(Time)!;
 
 	// Query the relevant entities
 	const results = world.query(Transform, Movement);

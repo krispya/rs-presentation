@@ -8,18 +8,12 @@ export const flockToPlayer = (world: World) => {
 	const player = world.queryFirst(Player, Transform);
 	if (!player) return;
 
-	const playerTransform = player.get(Transform);
+	const playerTransform = player.get(Transform)!;
 
-	world
-		.query(Enemy, Transform, Movement)
-		.updateEach(([transform, { velocity, thrust }]) => {
-			// Calculate and apply acceleration towards player
-			acceleration
-				.copy(playerTransform.position)
-				.sub(transform.position)
-				.normalize()
-				.multiplyScalar(thrust);
+	world.query(Enemy, Transform, Movement).updateEach(([transform, { velocity, thrust }]) => {
+		// Calculate and apply acceleration towards player
+		acceleration.copy(playerTransform.position).sub(transform.position).normalize().multiplyScalar(thrust);
 
-			velocity.add(acceleration);
-		});
+		velocity.add(acceleration);
+	});
 };

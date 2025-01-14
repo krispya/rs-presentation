@@ -6,7 +6,17 @@ import noiseSrc from '../assets/noise2.png';
 
 const DPR = 0.75;
 
-export function Nebula() {
+export function Nebula({
+	speed = 0.012,
+	scale = 2.25,
+	octaves = 5,
+	twinkleStrength = 0.1,
+}: {
+	speed?: number;
+	scale?: number;
+	octaves?: number;
+	twinkleStrength?: number;
+}) {
 	const mesh = useRef<THREE.Mesh>(null!);
 
 	const camera = useThree().camera as THREE.PerspectiveCamera;
@@ -24,10 +34,10 @@ export function Nebula() {
 		},
 		uResolution: new THREE.Uniform(new THREE.Vector2()),
 		uNoise: new THREE.Uniform(null),
-		uSpeed: new THREE.Uniform(0.012),
-		uScale: new THREE.Uniform(2.25),
-		uOctaves: new THREE.Uniform(5.0),
-		uTwinkleStrength: new THREE.Uniform(0.1),
+		uSpeed: new THREE.Uniform(speed),
+		uScale: new THREE.Uniform(scale),
+		uOctaves: new THREE.Uniform(octaves),
+		uTwinkleStrength: new THREE.Uniform(twinkleStrength),
 	};
 
 	useFrame((state) => {
@@ -60,11 +70,7 @@ export function Nebula() {
 	return (
 		<mesh ref={mesh}>
 			<planeGeometry args={[1, 1]} />
-			<shaderMaterial
-				fragmentShader={cloudfragmentShader}
-				vertexShader={vertexShader}
-				uniforms={uniforms}
-			/>
+			<shaderMaterial fragmentShader={cloudfragmentShader} vertexShader={vertexShader} uniforms={uniforms} />
 		</mesh>
 	);
 }

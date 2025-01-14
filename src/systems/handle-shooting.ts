@@ -24,7 +24,7 @@ window.addEventListener('keyup', (e) => {
 });
 
 export const handleShooting = (world: World) => {
-	const { delta } = world.get(Time);
+	const { delta } = world.get(Time)!;
 	const { spawnBullet } = actions(world);
 
 	// Update cooldown
@@ -40,7 +40,7 @@ export const handleShooting = (world: World) => {
 	if (keys.space && canShoot) {
 		const player = world.queryFirst(Player, Transform);
 		if (player) {
-			const playerTransform = player.get(Transform);
+			const playerTransform = player.get(Transform)!;
 			spawnBullet(playerTransform.position, playerTransform.rotation);
 			canShoot = false;
 		}

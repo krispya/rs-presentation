@@ -57,11 +57,7 @@ export class SpatialHashMap {
 		for (let cx = minCellX; cx <= maxCellX; cx++) {
 			for (let cy = minCellY; cy <= maxCellY; cy++) {
 				for (let cz = minCellZ; cz <= maxCellZ; cz++) {
-					const cell = this.getCell(
-						cx * this.cellSize,
-						cy * this.cellSize,
-						cz * this.cellSize
-					);
+					const cell = this.getCell(cx * this.cellSize, cy * this.cellSize, cz * this.cellSize);
 
 					for (const entity of cell) {
 						entities.push(entity);

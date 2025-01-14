@@ -2,8 +2,8 @@ import '@fontsource/russo-one';
 import { Html } from '@react-three/drei';
 import { useWorld } from 'koota/react';
 import { useEffect, useState } from 'react';
-import AnimatedNumbers from 'react-animated-numbers';
 import { Enemy } from '../traits';
+import { AnimatedCounter } from 'react-animated-counter';
 
 export function ScoreTracker() {
 	const world = useWorld();
@@ -37,34 +37,41 @@ export function ScoreTracker() {
 
 export function HifiScoreTracker() {
 	const world = useWorld();
-	const [score, setScore] = useState(0);
+	const [score, setScore] = useState(99999);
 
 	useEffect(() => {
 		const unsub = world.onRemove([Enemy], () => {
 			setScore((v) => v + 1);
 		});
 
-		setScore((v) => v + 1);
+		setScore(0);
 
 		return () => {
 			unsub();
-			setScore(0);
 		};
 	}, [world]);
 
 	return (
-		<Html
-			fullscreen
-			style={{
-				padding: 40,
-				color: 'gold',
-				fontSize: '3rem',
-				fontFamily: 'Russo One',
-				display: 'flex',
-				gap: '0.65rem',
-			}}
-		>
-			Score: <AnimatedNumbers animateToNumber={score} />
+		<Html fullscreen>
+			<div
+				style={{
+					padding: 40,
+					color: 'gold',
+					fontSize: '3rem',
+					fontFamily: 'Russo One',
+					display: 'inline-flex',
+					gap: '0.65rem',
+				}}
+			>
+				Score:{' '}
+				<AnimatedCounter
+					value={score}
+					fontSize="3rem"
+					includeDecimals={false}
+					color="gold"
+					incrementColor="white"
+				/>
+			</div>
 		</Html>
 	);
 }

@@ -9,9 +9,9 @@ export function EnemyView({ entity }: { entity: Entity }) {
 	const ref = useRef<THREE.Mesh>(null!);
 
 	useLayoutEffect(() => {
-		ref.current.position.copy(entity.get(Transform).position);
-		ref.current.rotation.copy(entity.get(Transform).rotation);
-		ref.current.scale.copy(entity.get(Transform).scale);
+		ref.current.position.copy(entity.get(Transform)!.position);
+		ref.current.rotation.copy(entity.get(Transform)!.rotation);
+		ref.current.scale.copy(entity.get(Transform)!.scale);
 
 		// Sync traits from mesh
 		entity.set(Transform, {
@@ -34,9 +34,9 @@ function HifiEnemyView({ entity }: { entity: Entity }) {
 	const scaleRef = useRef(0);
 
 	useLayoutEffect(() => {
-		ref.current.position.copy(entity.get(Transform).position);
-		ref.current.rotation.copy(entity.get(Transform).rotation);
-		ref.current.scale.copy(entity.get(Transform).scale);
+		ref.current.position.copy(entity.get(Transform)!.position);
+		ref.current.rotation.copy(entity.get(Transform)!.rotation);
+		ref.current.scale.copy(entity.get(Transform)!.scale);
 
 		// Sync traits from mesh
 		entity.set(Transform, {
@@ -59,11 +59,7 @@ function HifiEnemyView({ entity }: { entity: Entity }) {
 	return (
 		<mesh ref={ref}>
 			<dodecahedronGeometry />
-			<meshStandardMaterial
-				color="white"
-				metalness={0.5}
-				roughness={0.25}
-			/>
+			<meshStandardMaterial color="white" metalness={0.5} roughness={0.25} />
 		</mesh>
 	);
 }
@@ -71,7 +67,5 @@ function HifiEnemyView({ entity }: { entity: Entity }) {
 // Query for all enemies and render them
 export function EnemyRenderer() {
 	const enemies = useQuery(Enemy, Transform);
-	return enemies.map((enemy) => (
-		<HifiEnemyView key={enemy.id()} entity={enemy} />
-	));
+	return enemies.map((enemy) => <HifiEnemyView key={enemy.id()} entity={enemy} />);
 }

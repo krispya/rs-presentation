@@ -13,10 +13,8 @@ export function PrintVelocity() {
 		const player = world.queryFirst(Player);
 		if (!player) return;
 
-		const { velocity } = player.get(Movement);
-		ref.current.textContent = `Velocity: ${velocity.x.toFixed(
-			2
-		)}, ${velocity.y.toFixed(2)}`;
+		const { velocity } = player.get(Movement)!;
+		ref.current.textContent = `Velocity: ${velocity.x.toFixed(2)}, ${velocity.y.toFixed(2)}`;
 	});
 
 	return (

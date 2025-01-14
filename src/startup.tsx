@@ -3,7 +3,7 @@ import { useActions, useWorld } from 'koota/react';
 import { useEffect } from 'react';
 import { actions } from './actions';
 import { updateSpatialHashing } from './systems/update-spatial-hashing';
-import { Movement, SpatialHashMap, Time } from './traits';
+import { Movement } from './traits';
 
 export function Startup() {
 	const { spawnPlayer, spawnEnemy } = useActions(actions);
@@ -26,11 +26,6 @@ export function Startup() {
 	}, [spawnPlayer, spawnEnemy]);
 
 	const world = useWorld();
-
-	useEffect(() => {
-		world.add(Time, SpatialHashMap);
-		// return () => world.remove(Time, SpatialHashMap);
-	}, [world]);
 
 	useFrame(() => {
 		updateSpatialHashing(world);

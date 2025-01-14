@@ -9,8 +9,8 @@ export function BulletView({ entity }: { entity: Entity }) {
 
 	useLayoutEffect(() => {
 		// Copy current position
-		ref.current.position.copy(entity.get(Transform).position);
-		ref.current.rotation.copy(entity.get(Transform).rotation);
+		ref.current.position.copy(entity.get(Transform)!.position);
+		ref.current.rotation.copy(entity.get(Transform)!.rotation);
 		entity.set(Transform, {
 			position: ref.current.position,
 			rotation: ref.current.rotation,
@@ -33,8 +33,8 @@ function HifiBulletView({ entity }: { entity: Entity }) {
 
 	useLayoutEffect(() => {
 		// Copy current position
-		ref.current.position.copy(entity.get(Transform).position);
-		ref.current.rotation.copy(entity.get(Transform).rotation);
+		ref.current.position.copy(entity.get(Transform)!.position);
+		ref.current.rotation.copy(entity.get(Transform)!.rotation);
 
 		entity.set(Transform, {
 			position: ref.current.position,
@@ -55,7 +55,5 @@ function HifiBulletView({ entity }: { entity: Entity }) {
 
 export function BulletRenderer() {
 	const bullets = useQuery(Bullet, Transform);
-	return bullets.map((bullet) => (
-		<HifiBulletView key={bullet.id()} entity={bullet} />
-	));
+	return bullets.map((bullet) => <HifiBulletView key={bullet.id()} entity={bullet} />);
 }

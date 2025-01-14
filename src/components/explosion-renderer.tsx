@@ -7,16 +7,16 @@ import { Explosion, Transform } from '../traits';
 
 export function ExplosionView({ entity }: { entity: Entity }) {
 	const groupRef = useRef<THREE.Group>(null);
-	const particleCount = entity.get(Explosion).count;
+	const particleCount = entity.get(Explosion)!.count;
 
 	useLayoutEffect(() => {
 		if (!groupRef.current) return;
 
 		// Position the explosion group
-		groupRef.current.position.copy(entity.get(Transform).position);
+		groupRef.current.position.copy(entity.get(Transform)!.position);
 
 		// Set particle velocities with random offset
-		const velocities = entity.get(Explosion).velocities;
+		const velocities = entity.get(Explosion)!.velocities;
 		const randomOffset = Math.random() * Math.PI * 2; // Random starting angle
 
 		for (let i = 0; i < particleCount; i++) {
@@ -32,10 +32,13 @@ export function ExplosionView({ entity }: { entity: Entity }) {
 	useFrame((_, delta) => {
 		if (!groupRef.current) return;
 
-		const { duration, current } = entity.get(Explosion);
+		const explosion = entity.get(Explosion);
+		if (!explosion) return;
+
+		const { duration, current } = explosion;
 		const progress = current / duration;
 
-		const velocities = entity.get(Explosion).velocities;
+		const velocities = entity.get(Explosion)!.velocities;
 		const particles = groupRef.current.children as THREE.Mesh[];
 
 		for (let i = 0; i < particleCount; i++) {
@@ -56,10 +59,7 @@ export function ExplosionView({ entity }: { entity: Entity }) {
 				return (
 					<mesh key={i}>
 						<sphereGeometry args={[0.18, 8, 8]} />
-						<meshBasicMaterial
-							color={new THREE.Color(1, 0.5, 0).multiplyScalar(40)}
-							transparent
-						/>
+						<meshBasicMaterial color={new THREE.Color(1, 0.5, 0).multiplyScalar(40)} transparent />
 					</mesh>
 				);
 			})}
